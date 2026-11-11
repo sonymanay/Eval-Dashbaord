@@ -304,6 +304,101 @@ tbody tr:hover{background:color-mix(in srgb,var(--cp-link) 5%,var(--cp-surface))
   .pipeline{grid-template-columns:1fr}
 }
 </style>
+<style>
+#scenario{border:1px solid var(--cp-border);background:var(--cp-surface);color:var(--cp-text);border-radius:10px;padding:9px 11px}
+.mon-kpis .card:before{content:"";position:absolute;inset:0 0 auto;height:4px;background:var(--cp-link)}
+.mon-table td{white-space:normal}
+.mon-kpis{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:16px}
+.mon-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pipeline.five{grid-template-columns:repeat(5,1fr)}
+.stage.post{border-color:var(--cp-accent)}
+.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;padding:3px 8px;border-radius:999px;margin-bottom:8px;background:var(--cp-surface-soft);color:var(--cp-text-muted)}
+.tag.post{background:var(--cp-accent-soft);color:var(--cp-accent)}
+.mon-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
+.mon-table th{text-align:left;font-size:11px;letter-spacing:.06em;color:var(--cp-text-muted);padding:10px;border-bottom:1px solid var(--cp-border)}
+.mon-table td{padding:12px 10px;border-bottom:1px solid var(--cp-border);vertical-align:top;line-height:1.45}
+.mon-table td b{color:var(--cp-text)}
+.alert-list{list-style:none;padding:0;margin:12px 0 0}
+.alert-list li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--cp-border);font-size:13px}
+.alert-list li:before{content:"!";flex:0 0 22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--cp-surface-soft);color:var(--cp-danger);font-weight:800;font-size:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chips span{border:1px solid var(--cp-border);border-radius:999px;padding:6px 10px;font-size:12px;background:var(--cp-surface-soft)}
+@media(max-width:1050px){.mon-kpis,.mon-three{grid-template-columns:repeat(2,1fr)}.pipeline.five{grid-template-columns:repeat(2,1fr)}}
+</style>
+<style>
+.journey{background:var(--cp-panel-strong);border:1px solid var(--cp-border);border-radius:16px;padding:14px 16px;margin:0 0 16px;box-shadow:0 6px 18px rgba(0,0,0,.05)}
+.journey-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.journey-head .eyebrow{margin:0}
+.personas{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.personas small{color:var(--cp-text-muted);font-weight:700;margin-right:4px}
+.persona{border:1px solid var(--cp-border);background:var(--cp-surface);color:var(--cp-text);border-radius:999px;padding:6px 11px;font-size:12px;cursor:pointer;font-weight:600}
+.persona.on{background:var(--cp-link);border-color:var(--cp-link);color:#fff}
+.persona-note{font-size:13px;color:var(--cp-text-muted);margin:2px 0 10px;min-height:18px}
+.persona-note b{color:var(--cp-text)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;counter-reset:st}
+.step{position:relative;text-align:left;border:1px solid var(--cp-border);background:var(--cp-surface);color:var(--cp-text);border-radius:12px;padding:10px 12px;cursor:pointer;transition:all .2s}
+.step:hover{border-color:var(--cp-link)}
+.step i{font-style:normal;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--cp-surface-soft);font-size:11px;font-weight:800;margin-right:6px;color:var(--cp-text-muted)}
+.step b{font-size:13px}
+.step span{display:block;font-size:11px;color:var(--cp-text-muted);margin-top:4px;line-height:1.35}
+.step.current{border-color:var(--cp-link);box-shadow:0 0 0 3px color-mix(in srgb,var(--cp-link) 22%,transparent)}
+.step.current i{background:var(--cp-link);color:#fff}
+.step.done i{background:var(--cp-success);color:#fff}
+.step.fit:after{content:"For you";position:absolute;top:-8px;right:10px;font-size:9px;font-weight:800;letter-spacing:.06em;background:var(--cp-accent);color:var(--cp-accent-fg);padding:2px 7px;border-radius:999px}
+.step.dim{opacity:.45}
+.story{display:grid;grid-template-columns:1.05fr 1.05fr 1.5fr;gap:12px;background:linear-gradient(135deg,color-mix(in srgb,var(--cp-link) 7%,var(--cp-surface)),var(--cp-surface));border:1px solid color-mix(in srgb,var(--cp-link) 30%,var(--cp-border));border-radius:16px;padding:16px;margin:0 0 16px}
+.story h3{margin:0 0 6px;font-size:11px;letter-spacing:.08em;color:var(--cp-link)}
+.story p{margin:0;font-size:13px;line-height:1.5}
+.story .who b{display:block;font-size:15px;margin-bottom:2px}
+.story ol{margin:0;padding-left:18px;font-size:13px;line-height:1.5}
+.story li{margin-bottom:6px}
+.story li button{margin-left:6px;border:1px solid var(--cp-link);background:transparent;color:var(--cp-link);border-radius:999px;font-size:11px;font-weight:700;padding:2px 9px;cursor:pointer}
+.story li button:hover{background:var(--cp-link);color:#fff}
+.story-foot{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px dashed var(--cp-border);padding-top:10px;flex-wrap:wrap}
+.story-foot .notice{font-size:13px}
+.story-foot .notice b{color:var(--cp-accent)}
+.spot{position:relative;z-index:2;outline:3px solid var(--cp-accent)!important;outline-offset:4px;border-radius:12px;animation:spotPulse 1.2s ease-in-out 3}
+@keyframes spotPulse{0%,100%{box-shadow:0 0 0 0 var(--cp-accent-soft)}50%{box-shadow:0 0 0 12px var(--cp-accent-soft)}}
+@media(max-width:1050px){.steps{grid-template-columns:repeat(2,1fr)}.story{grid-template-columns:1fr}}
+@media(max-width:760px){.steps{grid-template-columns:1fr 1fr}.step span{display:none}}
+</style>
+<style>
+.mtabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 4px}
+.mtab{border:1px solid var(--cp-border);background:var(--cp-surface);color:var(--cp-text);border-radius:999px;padding:7px 13px;font-size:12px;font-weight:700;cursor:pointer}
+.mtab.on{background:var(--cp-accent);border-color:var(--cp-accent);color:var(--cp-accent-fg)}
+.mpanel{display:none}.mpanel.on{display:block}
+.mpanel .lead{font-size:13px;color:var(--cp-text-muted);margin:10px 0 0;line-height:1.5}
+.bar-pill{display:inline-block;font-weight:800;font-size:12px;padding:3px 9px;border-radius:999px;background:var(--cp-accent-soft);color:var(--cp-accent);white-space:nowrap}
+.bar-pill.tbd{background:var(--cp-surface-soft);color:var(--cp-text-muted)}
+.formula{font:12px Consolas,"Courier New",monospace;color:var(--cp-text-muted)}
+.hitl{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.hitl div{border:1px solid var(--cp-border);border-radius:12px;padding:12px;background:var(--cp-surface-soft);font-size:13px;line-height:1.45}
+.hitl b{display:block;margin-bottom:4px}
+@media(max-width:1050px){.hitl{grid-template-columns:1fr}}
+</style>
+<style>
+.hero{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.hero>div{border:1px solid var(--cp-border);border-radius:16px;padding:16px;background:var(--cp-surface)}
+.hero .one{background:linear-gradient(135deg,var(--cp-accent),#7a1335);color:#fff;border:0}
+.hero .one h2{color:#fff;font-size:20px;margin:6px 0 8px;line-height:1.3}
+.hero .one p{color:rgba(255,255,255,.88)}
+.hero h3{margin:0;font-size:11px;letter-spacing:.08em;color:var(--cp-link)}
+.hero .one h3{color:rgba(255,255,255,.8)}
+.hero p{margin:6px 0 0;font-size:13px;line-height:1.5;color:var(--cp-text-muted)}
+.hero b{color:var(--cp-text)}.hero .one b{color:#fff}
+.viewbtn.on{background:var(--cp-surface-soft)}
+.simple .detail{display:none!important}
+.simple .story{grid-template-columns:1fr 1.5fr}
+@media(max-width:1050px){.simple .story{grid-template-columns:1fr}}
+.simple .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+.simple .step span{display:none}
+.simple .step{padding:8px 10px}
+.simple .journey{padding:10px 14px}
+.simple .persona-note:empty{display:none}
+@media(max-width:1050px){.hero{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+</style>
+<style>.story[hidden]{display:none!important}</style>
 </head>
 <body>
 <div class="app">
@@ -312,27 +407,48 @@ tbody tr:hover{background:color-mix(in srgb,var(--cp-link) 5%,var(--cp-surface))
     <nav class="nav">
       <button class="active" data-page="overview">⌂ <span>Overview</span></button>
       <button data-page="lab">▶ <span>Evaluation lab</span></button>
-      <button data-page="failures">◇ <span>Failure explorer</span></button>
+      <button data-page="monitor">◉ <span>Post-release monitoring</span></button>
+      <button class="detail" data-page="failures">◇ <span>Failure explorer</span></button>
       <button data-page="learn">? <span>Learn the framework</span></button>
     </nav>
-    <div class="side-note"><b>Dataset-safe view</b><p>Raw titles, descriptions, discussions, and reviewer rationale are excluded.</p></div>
+    <div class="side-note detail"><b>Dataset-safe view</b><p>Raw titles, descriptions, discussions, and reviewer rationale are excluded.</p></div>
   </aside>
   <main class="main">
     <div class="topbar">
-      <div><div class="eyebrow">VEYRA OS + Signal Fabric</div><h1 id="page-title">Evaluation command center</h1><div class="sub">Golden-set evidence, release gates, and failure learning in one place.</div></div>
-      <div class="actions"><button class="btn" id="themeBtn">Toggle theme</button><button class="btn primary" id="tourBtn">Start 30-sec tour</button></div>
+      <div><div class="eyebrow">VEYRA OS + Signal Fabric</div><h1 id="page-title">Prove it before you trust it</h1><div class="sub">Proving VEYRA flags the right program risks, before release and after.</div></div>
+      <div class="actions"><button class="btn viewbtn" id="viewBtn">Show full detail</button><button class="btn" id="themeBtn">Toggle theme</button><button class="btn primary" id="tourBtn">Start 30-sec tour</button></div>
     </div>
 
+    <div class="journey detail" id="journey">
+      <div class="journey-head"><div class="eyebrow">Explore on your own · 4 steps · ~3 minutes</div>
+        <div class="personas" id="personas"><small>I am a…</small>
+          <button class="persona on" data-persona="all">Anyone</button>
+          <button class="persona" data-persona="tpm">TPM / program owner</button>
+          <button class="persona" data-persona="leader">Program leader</button>
+          <button class="persona" data-persona="eval">Evaluation owner</button>
+          <button class="persona" data-persona="sme">SME reviewer</button>
+        </div></div>
+      <div class="persona-note" id="personaNote"></div>
+      <div class="steps" id="steps"></div>
+    </div>
+    <div class="story" id="story"></div>
+
     <section class="page active" id="overview">
-      <div class="banner"><div class="status"><span class="dot"></span><div><strong>Golden labels loaded; model predictions are not present</strong><p>Run the evaluation lab to compare a transparent rules baseline against the 108 reviewed labels.</p></div></div><span class="badge">Source: label-queue</span></div>
+      <div class="hero" id="g-hero">
+        <div class="one"><h3>WHAT IS VEYRA?</h3><h2>An AI teammate for TPMs that reads program activity and surfaces only the risks someone must act on.</h2><p>It watches Azure DevOps, Teams and meetings, then flags, explains and routes, with sources.</p></div>
+        <div><h3>THE PROBLEM</h3><p>TPMs spend <b>hours every week chasing status</b>, and real risks get buried in noise.</p></div>
+        <div><h3>WHO IT HELPS</h3><p><b>TPMs</b> get fewer, better signals. <b>Leaders</b> get a weekly picture they can trust.</p></div>
+        <div><h3>WHAT THIS STUDIO DOES</h3><p>Checks VEYRA against <b>108 human-reviewed answers</b> to decide <b>ship or hold</b>, then keeps checking after release.</p></div>
+      </div>
+      <div class="banner detail"><div class="status"><span class="dot"></span><div><strong>Golden labels loaded; model predictions are not present</strong><p>Run the evaluation lab to compare a transparent rules baseline against the 108 reviewed labels.</p></div></div><span class="badge">Source: label-queue</span></div>
       <div class="grid kpis">
         <div class="card"><div class="kpi-label">LABELED RECORDS</div><div class="kpi-value" id="totalRows"></div><div class="kpi-foot">100% golden-label coverage</div></div>
         <div class="card"><div class="kpi-label">SURFACE</div><div class="kpi-value" id="surfaceCount"></div><div class="kpi-foot" id="surfaceRate"></div></div>
         <div class="card"><div class="kpi-label">SUPPRESS</div><div class="kpi-value" id="suppressCount"></div><div class="kpi-foot">Negative examples reduce noise</div></div>
-        <div class="card"><div class="kpi-label">PREDICTION COVERAGE</div><div class="kpi-value">0%</div><div class="kpi-foot">Prediction column is empty</div></div>
+        <div class="card detail"><div class="kpi-label">PREDICTION COVERAGE</div><div class="kpi-value">0%</div><div class="kpi-foot">Prediction column is empty</div></div>
       </div>
       <div class="grid two">
-        <div class="card"><h2>Framework mapped to VEYRA runtime</h2><div class="sub">Each stage emits evidence, gets scored, and feeds a release decision.</div>
+        <div class="card" id="g-runtime"><h2>Framework mapped to VEYRA runtime</h2><div class="sub">Each stage emits evidence, gets scored, and feeds a release decision.</div>
           <div class="pipeline">
             <div class="stage"><i>1</i><b>SENSOR</b><span>Detect actionable signals across ADO, Teams, M365, meetings, and program state.</span></div>
             <div class="stage"><i>2</i><b>TRIAGE</b><span>Apply nine deterministic rules plus AI priority judgment and safe fallback.</span></div>
@@ -340,7 +456,7 @@ tbody tr:hover{background:color-mix(in srgb,var(--cp-link) 5%,var(--cp-surface))
             <div class="stage"><i>4</i><b>COURIER</b><span>Deliver or write back only with valid routing, approval, and audit evidence.</span></div>
           </div>
         </div>
-        <div class="card"><h2>Golden label balance</h2><div class="sub">A recall-sensitive evaluation problem</div>
+        <div class="card" id="g-balance"><h2>Golden label balance</h2><div class="sub">A recall-sensitive evaluation problem</div>
           <div class="donut-wrap"><div class="donut" id="donut"><div class="donut-label" id="donutLabel"></div></div><div class="legend"><div><span class="swatch"></span><span><b id="legendSurface"></b> Surface</span></div><div><span class="swatch alt"></span><span><b id="legendSuppress"></b> Suppress</span></div></div></div>
           <div class="callout" style="margin-top:20px"><b>Evaluation implication:</b> Accuracy alone can hide missed critical signals. Track recall, precision, F1, and the confusion matrix.</div>
         </div>
@@ -353,26 +469,33 @@ tbody tr:hover{background:color-mix(in srgb,var(--cp-link) 5%,var(--cp-surface))
 
     <section class="page" id="lab">
       <div class="lab-grid">
-        <div class="card controls"><h2>Rules baseline</h2><div class="sub">A transparent demonstration—not a trained VEYRA model.</div>
+        <div class="card controls"><label style="margin-top:0">Use case</label>
+          <select id="scenario" style="width:100%;margin-bottom:12px">
+            <option value="baseline">1 · Rules baseline (today) — expect HOLD</option>
+            <option value="near">2 · Near miss: 12 of 13 caught — expect HOLD</option>
+            <option value="candidate">3 · Release candidate: 95%+ recall — expect PASS</option>
+          </select>
+          <div class="callout" id="scenarioNote" style="margin-bottom:12px"></div>
+          <div id="baselineControls"><h2>Rules baseline</h2><div class="sub">A transparent demonstration—not a trained VEYRA model.</div>
           <label>Surface threshold</label><div class="range-row"><input id="threshold" type="range" min="-50" max="60" value="10" step="5"><span class="threshold" id="thresholdValue">10</span></div>
-          <label>Evidence weights</label>
+          <div><label>Evidence weights</label>
           <div class="switches">
             <label class="switch">Health off track <input type="checkbox" data-rule="health" checked></label>
             <label class="switch">Help requested <input type="checkbox" data-rule="help" checked></label>
             <label class="switch">Target date passed <input type="checkbox" data-rule="date" checked></label>
             <label class="switch">Blocker present <input type="checkbox" data-rule="blocker" checked></label>
             <label class="switch">Suppress tasks / closed items <input type="checkbox" data-rule="suppress" checked></label>
-          </div>
+          </div></div></div>
           <button class="btn primary" id="runBtn" style="width:100%;margin-top:18px">Run evaluation</button>
         </div>
         <div>
-          <div class="grid metrics">
+          <div class="grid metrics" id="g-metrics">
             <div class="card metric"><strong id="accuracy">—</strong><span>Accuracy</span></div>
             <div class="card metric"><strong id="precision">—</strong><span>Precision</span></div>
             <div class="card metric"><strong id="recall">—</strong><span>Recall</span></div>
             <div class="card metric"><strong id="f1">—</strong><span>F1 score</span></div>
           </div>
-          <div class="card"><h2>Confusion matrix</h2><div class="sub">Golden reviewer label versus sandbox prediction</div>
+          <div class="card" id="g-matrix"><h2>Confusion matrix</h2><div class="sub">Golden reviewer label versus sandbox prediction</div>
             <div class="matrix">
               <div></div><div class="head">PREDICT SURFACE</div><div class="head">PREDICT SUPPRESS</div>
               <div class="head">GOLD SURFACE</div><div class="good"><strong id="tp">—</strong>True positive</div><div class="bad"><strong id="fn">—</strong>False negative</div>
@@ -382,7 +505,7 @@ tbody tr:hover{background:color-mix(in srgb,var(--cp-link) 5%,var(--cp-surface))
           </div>
         </div>
       </div>
-      <div class="card" style="margin-top:16px"><h2>How the release gate works</h2><div class="pipeline">
+      <div class="card detail" style="margin-top:16px"><h2>How the release gate works</h2><div class="pipeline">
         <div class="stage"><i>1</i><b>Capture</b><span>Freeze dataset, model/config version, source snapshot, and trace envelope.</span></div>
         <div class="stage"><i>2</i><b>Score</b><span>Run deterministic checks, golden-set metrics, tool tests, and model judges.</span></div>
         <div class="stage"><i>3</i><b>Diagnose</b><span>Attribute every miss to Sense, Decide, Synthesize, Deliver, or Govern.</span></div>
@@ -390,21 +513,148 @@ tbody tr:hover{background:color-mix(in srgb,var(--cp-link) 5%,var(--cp-surface))
       </div></div>
     </section>
 
+    <section class="page" id="monitor">
+      <div class="callout" style="margin-bottom:16px"><b>Eval does not stop at release.</b> The release gate decides whether a version ships; post-release evaluation decides whether it can still be trusted.</div>
+      <div class="grid mon-kpis detail">
+        <div class="card"><div class="kpi-label">CADENCE</div><div class="kpi-value">Nightly</div><div class="kpi-foot">Golden-set replay, plus before any prompt or model change</div></div>
+        <div class="card"><div class="kpi-label">ROLLOUT MODES</div><div class="kpi-value">3</div><div class="kpi-foot">Shadow · Canary · A/B</div></div>
+        <div class="card"><div class="kpi-label">SCOREBOARD AREAS</div><div class="kpi-value">5</div><div class="kpi-foot">Signal · Decision · Narrative · Action · Outcome</div></div>
+        <div class="card"><div class="kpi-label">ALERT TRIGGERS</div><div class="kpi-value">5</div><div class="kpi-foot">Each alert becomes a diagnosable case</div></div>
+      </div>
+
+      <div class="card" id="g-lifecycle"><h2>One evaluation lifecycle: before and after release</h2><div class="sub">Quality gates move from fast checks to realistic evidence, then continue in production.</div>
+        <div class="pipeline five">
+          <div class="stage"><span class="tag">PRE-RELEASE</span><i>1</i><b>PR · seconds</b><span>Schemas, unit rules, contract mocks.</span></div>
+          <div class="stage"><span class="tag">PRE-RELEASE</span><i>2</i><b>Nightly · minutes</b><span>Golden set, synthetic suite, tool replay.</span></div>
+          <div class="stage"><span class="tag">PRE-RELEASE</span><i>3</i><b>Candidate · hours</b><span>Full regression, adversarial suite, human review.</span></div>
+          <div class="stage post"><span class="tag post">POST-RELEASE</span><i>4</i><b>Shadow · days</b><span>Live traffic, no write-back, compare outcomes.</span></div>
+          <div class="stage post"><span class="tag post">POST-RELEASE</span><i>5</i><b>Pilot · weeks</b><span>Approved actions, outcome KPIs, drift watch.</span></div>
+        </div>
+        <div class="gate pass" style="margin-top:16px"><b>Promotion rule</b><div class="sub">All must-pass controls are green + quality bars met + no unexplained regression + a named approver signs the evidence packet.</div></div>
+      </div>
+
+      <div class="grid mon-three detail" style="margin-top:16px">
+        <div class="card lesson"><div class="num">SHADOW</div><h2>Score without changing behavior</h2><p>New logic is scored on live traffic while the current version keeps running operations.</p></div>
+        <div class="card lesson"><div class="num">CANARY</div><h2>Expose a bounded cohort</h2><p>A limited set of programs gets the change, with rollback and approval controls in place.</p></div>
+        <div class="card lesson"><div class="num">A/B</div><h2>Compare variants on outcomes</h2><p>Narrative, prioritization, or routing variants are compared on outcome metrics, not opinion.</p></div>
+      </div>
+
+      <div class="card detail" id="g-scoreboard" style="margin-top:16px"><h2>Live scoreboard</h2><div class="sub">What is watched in production, and the bar it is held to. Layer scores are shown separately; no single blended score.</div>
+        <table class="mon-table">
+          <thead><tr><th>AREA</th><th>WHAT IS MONITORED</th><th>BAR / WATCH RULE</th></tr></thead>
+          <tbody>
+            <tr><td><b>Signal</b><br><span class="sub">Sensor</span></td><td>Precision · P0 recall · duplicate rate · detection latency</td><td>P0 recall ≥ 95%</td></tr>
+            <tr><td><b>Decision</b><br><span class="sub">Triage</span></td><td>Priority drift · route/SLA match · intervention rate</td><td>Target + SLA accuracy ≥ 90%; 100% valid state transitions</td></tr>
+            <tr><td><b>Narrative</b><br><span class="sub">Narrator</span></td><td>Groundedness · citation health · unsupported claims</td><td>Groundedness ≥ 0.95; citation integrity 100%</td></tr>
+            <tr><td><b>Action</b><br><span class="sub">Courier</span></td><td>Approval coverage · write-back errors · delivery success</td><td>0 unapproved actions; 0 successful injections; audit completeness 100%</td></tr>
+            <tr><td><b>Outcome</b><br><span class="sub">Human value</span></td><td>Time-to-triage · action rate · reporting effort · override rate</td><td>Pilot KPIs, measured against a pre-pilot baseline</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" id="g-measure" style="margin-top:16px"><h2>How VEYRA will be measured after release</h2>
+        <div class="sub">Same model as Ask a Question quality evaluation: automated metrics, human-in-the-loop review, and user feedback, each reported separately. Bars marked “baseline” are set after pilot data, not assumed.</div>
+        <div class="grid mon-kpis" style="margin-top:14px;margin-bottom:0">
+          <div class="card"><div class="kpi-label">PILOT COHORT</div><div class="kpi-value">10 TPMs</div><div class="kpi-foot">Proposed controlled pilot</div></div>
+          <div class="card"><div class="kpi-label">DURATION</div><div class="kpi-value">6 weeks</div><div class="kpi-foot">Measured against a pre-pilot baseline</div></div>
+          <div class="card"><div class="kpi-label">PRIMARY USER METRIC</div><div class="kpi-value">HSR</div><div class="kpi-foot">Helpful Signal Rate (👍 share)</div></div>
+          <div class="card"><div class="kpi-label">SAFETY BAR</div><div class="kpi-value">≥ 95%</div><div class="kpi-foot">P0 recall: no silent misses</div></div>
+        </div>
+        <div class="mtabs" id="mtabs">
+          <button class="mtab on" data-m="quality">1 · Quality (automated)</button>
+          <button class="mtab" data-m="hitl">2 · Human-in-the-loop</button>
+          <button class="mtab" data-m="usage">3 · Usage & feedback</button>
+          <button class="mtab" data-m="trust">4 · Trust gates</button>
+          <button class="mtab" data-m="diag">5 · Diagnostics</button>
+        </div>
+        <div class="mpanel on" data-m="quality">
+          <table class="mon-table"><thead><tr><th>METRIC</th><th>DEFINITION</th><th>HOW MEASURED</th><th>BAR</th></tr></thead><tbody>
+            <tr><td><b>P0 signal recall</b></td><td>Critical items VEYRA surfaced ÷ critical items that should surface</td><td>Nightly golden-set replay + SME-labelled production sample</td><td><span class="bar-pill">≥ 95%</span></td></tr>
+            <tr><td><b>Signal precision</b></td><td>Surfaced items reviewers agree needed action ÷ all surfaced items</td><td>Same replay and sample; tracks alert noise</td><td><span class="bar-pill tbd">Baseline, then agree</span></td></tr>
+            <tr><td><b>Macro F1</b></td><td>Balance of precision and recall across Surface and Suppress</td><td>Golden-set replay per release and nightly</td><td><span class="bar-pill">≥ 0.85</span></td></tr>
+            <tr><td><b>Target + SLA accuracy</b></td><td>Escalations with the right owner and due-by ÷ reviewed escalations</td><td>Triage traces checked against reviewer routing</td><td><span class="bar-pill">≥ 90%</span></td></tr>
+            <tr><td><b>Groundedness</b></td><td>Narrative claims supported by source work items ÷ all claims</td><td>Model judge, calibrated against SME review</td><td><span class="bar-pill">≥ 0.95</span></td></tr>
+            <tr><td><b>Citation integrity</b></td><td>Citations that resolve to the cited source ÷ all citations</td><td>Automated link and content check</td><td><span class="bar-pill">100%</span></td></tr>
+          </tbody></table>
+        </div>
+        <div class="mpanel" data-m="hitl">
+          <div class="hitl">
+            <div><b>1 · Sample weekly</b>Reviewers sample both surfaced <i>and</i> suppressed items, so missed signals are found, not only false alarms.</div>
+            <div><b>2 · Rate 1–5</b>Approve (4–5): correct call with grounded evidence. Reject (1–2): wrong call, stale data or unsupported claim.</div>
+            <div><b>3 · Correct and rehydrate</b>The reviewer records the right label; rejected items join the golden set as new test cases.</div>
+          </div>
+          <table class="mon-table"><thead><tr><th>METRIC</th><th>DEFINITION</th><th>HOW MEASURED</th><th>BAR</th></tr></thead><tbody>
+            <tr><td><b>Human accuracy</b></td><td>Items rated 4–5 ÷ reviewed items</td><td>Weekly SME sample</td><td><span class="bar-pill tbd">Baseline, then agree</span></td></tr>
+            <tr><td><b>Judge–SME agreement</b></td><td>Same pass/fail call ÷ jointly reviewed items; false positives and false negatives reported separately</td><td>Calibrates automated judges; does not replace human review</td><td><span class="bar-pill tbd">Baseline, then agree</span></td></tr>
+          </tbody></table>
+        </div>
+        <div class="mpanel" data-m="usage">
+          <table class="mon-table"><thead><tr><th>METRIC</th><th>DEFINITION</th><th>HOW MEASURED</th><th>BAR</th></tr></thead><tbody>
+            <tr><td><b>Helpful Signal Rate (HSR)</b></td><td>👍 ÷ (👍 + 👎) on surfaced signals</td><td>In-product feedback on each signal and summary</td><td><span class="bar-pill tbd">Baseline, then agree</span></td></tr>
+            <tr><td><b>Feedback rate</b></td><td>Signals with feedback ÷ signals delivered</td><td>Low feedback means HSR is read alongside SME sampling</td><td><span class="bar-pill tbd">Track</span></td></tr>
+            <tr><td><b>Action rate</b></td><td>Surfaced signals acted on ÷ surfaced signals</td><td>Follow-up in ADO or Teams within the SLA</td><td><span class="bar-pill tbd">Baseline, then agree</span></td></tr>
+            <tr><td><b>Override rate</b></td><td>Signals dismissed or relabelled by a TPM ÷ surfaced signals</td><td>Clusters trigger an alert and a diagnosis</td><td><span class="bar-pill tbd">Watch for clusters</span></td></tr>
+            <tr><td><b>Time-to-triage</b></td><td>Time from risk appearing to a TPM acting on it</td><td>Compared with the pre-pilot baseline</td><td><span class="bar-pill tbd">Pilot KPI</span></td></tr>
+            <tr><td><b>Reporting effort</b></td><td>Hours per TPM per week spent on status reporting</td><td>Pilot survey vs. baseline; 4–6 hrs/week saving is a hypothesis to validate</td><td><span class="bar-pill tbd">Pilot KPI</span></td></tr>
+          </tbody></table>
+        </div>
+        <div class="mpanel" data-m="trust">
+          <p class="lead">Binary checks: one failure triggers an alert and blocks promotion.</p>
+          <table class="mon-table"><thead><tr><th>GATE</th><th>DEFINITION</th><th>BAR</th></tr></thead><tbody>
+            <tr><td><b>Unapproved actions</b></td><td>Write-backs or messages sent without the required approval</td><td><span class="bar-pill">0</span></td></tr>
+            <tr><td><b>Prompt injections</b></td><td>Injected instructions in work items that changed VEYRA’s behavior</td><td><span class="bar-pill">0</span></td></tr>
+            <tr><td><b>Audit completeness</b></td><td>Actions with a complete audit record ÷ all actions</td><td><span class="bar-pill">100%</span></td></tr>
+            <tr><td><b>State validity</b></td><td>Valid lifecycle transitions ÷ all transitions</td><td><span class="bar-pill">100%</span></td></tr>
+          </tbody></table>
+        </div>
+        <div class="mpanel" data-m="diag">
+          <table class="mon-table"><thead><tr><th>MEASURE</th><th>DEFINITION</th><th>USE</th></tr></thead><tbody>
+            <tr><td><b>Evaluation coverage</b></td><td>Eligible items captured and scored ÷ all eligible items</td><td>Report the sampling fraction before reading any score</td></tr>
+            <tr><td><b>Failure attribution</b></td><td>Failed items classified by layer ÷ all failures</td><td>Sense · Decide · Synthesize · Deliver · Govern, plus an “unknown” bucket that needs review</td></tr>
+            <tr><td><b>Drift</b></td><td>Change in input mix (programs, work-item types, severity) vs. the golden set</td><td>A material shift triggers golden-set refresh</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <div class="grid two detail" style="margin-top:16px">
+        <div class="card" id="g-alerts"><h2>Alert when…</h2><div class="sub">Trust gates are binary: one failure is enough to alert.</div>
+          <ul class="alert-list">
+            <li>Critical-class recall drops</li>
+            <li>A trust gate fails once</li>
+            <li>The input distribution shifts materially</li>
+            <li>Citation source health degrades</li>
+            <li>Human override clusters emerge</li>
+          </ul>
+          <div class="callout" style="margin-top:14px">Every alert creates a diagnosable case and a candidate for dataset rehydration.</div>
+        </div>
+        <div class="card" id="g-feedback"><h2>What feeds back into the golden set</h2><div class="sub">Production failures are rehydrated so the same miss cannot recur silently.</div>
+          <div class="chips"><span>Missed signals</span><span>False alarms</span><span>Human overrides</span><span>Bad routes</span><span>Unsupported claims</span><span>Tool failures</span><span>New program patterns</span></div>
+          <div class="callout" style="margin-top:14px"><b>Dataset strategy:</b> Golden (SME-curated, 100–300 cases) → Synthetic (200–1,000 coverage cases) → Production (continuous, rehydrated failures). Versioned, de-identified and source-provenanced.</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px"><h2>Closed learning loop</h2><div class="pipeline">
+        <div class="stage post"><i>1</i><b>Monitor</b><span>Watch drift, overrides, misses, false alarms, and outcome KPIs.</span></div>
+        <div class="stage post"><i>2</i><b>Rehydrate</b><span>Add new and failed patterns to the golden or synthetic set.</span></div>
+        <div class="stage post"><i>3</i><b>Improve</b><span>Change prompts, rules, routing, tools, or policy with a versioned hypothesis.</span></div>
+        <div class="stage post"><i>4</i><b>Regress</b><span>Replay the full evidence suite before the next controlled rollout.</span></div>
+      </div>
+      <div class="callout detail" style="margin-top:16px"><b>Why continuous:</b> a single scoring run is a snapshot. Only a nightly cadence over several weeks shows whether accuracy holds, and the feedback loop needs at least two weeks of real outcome data before it can be judged.</div></div>
+    </section>
     <section class="page" id="failures">
       <div class="card"><h2>Failure explorer</h2><div class="sub">Sanitized records only. No titles, descriptions, discussions, or raw reviewer rationale.</div>
-        <div class="filters"><select id="programFilter"><option value="">All programs</option></select><select id="typeFilter"><option value="">All work item types</option></select><select id="labelFilter"><option value="">All golden labels</option><option value="true">Surface</option><option value="false">Suppress</option></select><input id="searchFilter" placeholder="Search category or state"></div>
+        <div class="filters" id="g-filters"><select id="programFilter"><option value="">All programs</option></select><select id="typeFilter"><option value="">All work item types</option></select><select id="labelFilter"><option value="">All golden labels</option><option value="true">Surface</option><option value="false">Suppress</option></select><input id="searchFilter" placeholder="Search category or state"></div>
       </div>
       <div class="table-wrap" style="margin-top:16px"><table><thead><tr><th>#</th><th>Program</th><th>Type</th><th>ADO state</th><th>Health</th><th>Blocker</th><th>Severity</th><th>Golden label</th><th>Normalized reason</th></tr></thead><tbody id="recordsBody"></tbody></table><div class="empty" id="empty" hidden>No matching records.</div></div>
     </section>
 
     <section class="page" id="learn">
-      <div class="grid learning">
+      <div class="grid learning" id="g-learning">
         <div class="card lesson"><div class="num">01 · SENSE</div><h2>Did VEYRA detect the right signal?</h2><p>Measure precision, recall, F1, source coverage, duplicate rate, detection latency, and source lineage. Segment by priority and source.</p><div class="callout">For this dataset, the golden truth is <b>shouldSurface</b>.</div></div>
         <div class="card lesson"><div class="num">02 · DECIDE</div><h2>Did VEYRA classify and route correctly?</h2><p>Run the nine-rule deterministic suite, validate lifecycle transitions, and measure joint escalation-target plus SLA accuracy.</p><div class="callout">Rules are exact checks; AI judgment handles semantic evidence the structured fields do not capture.</div></div>
         <div class="card lesson"><div class="num">03 · SYNTHESIZE</div><h2>Is the leadership narrative trustworthy?</h2><p>Evaluate groundedness, completeness, relevance, concision, citation integrity, and unsupported-claim rate.</p><div class="callout">A good classification can still produce a bad brief—score the stages separately.</div></div>
         <div class="card lesson"><div class="num">04 · DELIVER + GOVERN</div><h2>Was the action safe and accountable?</h2><p>Require approval, authorization, valid tool arguments, state integrity, scoped memory, visible errors, and a complete audit trail.</p><div class="callout">Trust gates are binary: zero unapproved write-backs and zero successful prompt injections.</div></div>
       </div>
-      <div class="card" style="margin-top:16px"><h2>Closed learning loop</h2><div class="pipeline">
+      <div class="card detail" style="margin-top:16px"><h2>Closed learning loop</h2><div class="pipeline">
         <div class="stage"><i>1</i><b>Monitor</b><span>Watch production drift, overrides, misses, false alarms, and outcome KPIs.</span></div>
         <div class="stage"><i>2</i><b>Rehydrate</b><span>Add new and failed patterns to the golden or synthetic evaluation set.</span></div>
         <div class="stage"><i>3</i><b>Improve</b><span>Change prompts, rules, routing, tools, or policy with a versioned hypothesis.</span></div>
@@ -446,7 +696,7 @@ bars("#reasonBars",DATA.distributions.reasonCategory,6);
 $$(".nav button").forEach(btn=>btn.addEventListener("click",()=>{
   $$(".nav button").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
   $$(".page").forEach(x=>x.classList.remove("active"));$(`#${btn.dataset.page}`).classList.add("active");
-  const titles={overview:"Evaluation command center",lab:"Golden-set evaluation lab",failures:"Sanitized failure explorer",learn:"Learn the VEYRA framework"};
+  const titles={overview:"Prove it before you trust it",lab:"Golden-set evaluation lab",failures:"Sanitized failure explorer",learn:"Learn the VEYRA framework",monitor:"Post-release evaluation"};
   $("#page-title").textContent=titles[btn.dataset.page];
 }));
 const requestedPage=new URLSearchParams(location.search).get("page");
@@ -473,17 +723,25 @@ function score(r){
   if(on("suppress")&&["Closed","Removed","Resolved","Solution Catalog"].includes(r.adoState))x-=45;
   return x;
 }
+const SCENARIOS={near:new Set([17, 18, 34, 54, 60, 81, 90, 91, 98, 99, 102, 105, 106]),candidate:new Set([17, 18, 34, 49, 54, 60, 79, 81, 90, 91, 98, 99, 102, 105, 106])};
+const NOTES={
+ baseline:"<b>Measured today.</b> A transparent rules baseline scored against the 108 reviewed golden labels. Move the threshold to see the precision/recall trade-off.",
+ near:"<b>Illustrative scenario (simulated predictions).</b> An improved version catches 12 of 13 real signals with only 1 false alarm. F1 looks strong, but one missed risk keeps recall below 95%, so the release still holds.",
+ candidate:"<b>Illustrative scenario (simulated predictions).</b> What a passing release candidate looks like: all 13 real signals caught, 2 false alarms, scored against the same 108 golden labels. Not a measured VEYRA result. Quality bar passes; trust gates must still be green before shipping."
+};
+function predict(r,t){const s=$("#scenario").value;return s==="baseline"?score(r)>=t:SCENARIOS[s].has(r.record);}
+function syncScenario(){const s=$("#scenario").value;$("#scenarioNote").innerHTML=NOTES[s];$("#baselineControls").style.opacity=s==="baseline"?"1":".4";$("#baselineControls").style.pointerEvents=s==="baseline"?"auto":"none";runEval();}
 function runEval(){
   let tp=0,tn=0,fp=0,fn=0;const t=Number(threshold.value);
-  DATA.records.forEach(r=>{const p=score(r)>=t,y=r.shouldSurface===true;if(p&&y)tp++;else if(p&&!y)fp++;else if(!p&&y)fn++;else tn++;});
+  DATA.records.forEach(r=>{const p=predict(r,t),y=r.shouldSurface===true;if(p&&y)tp++;else if(p&&!y)fp++;else if(!p&&y)fn++;else tn++;});
   const precision=tp+fp?tp/(tp+fp):0,recall=tp+fn?tp/(tp+fn):0,accuracy=(tp+tn)/DATA.rows,f1=precision+recall?2*precision*recall/(precision+recall):0;
   [["#accuracy",accuracy],["#precision",precision],["#recall",recall],["#f1",f1]].forEach(([id,v])=>$(id).textContent=pct(v));
   [["#tp",tp],["#tn",tn],["#fp",fp],["#fn",fn]].forEach(([id,v])=>$(id).textContent=v);
   const pass=recall>=.95&&f1>=.85;
   $("#gate").className=`gate ${pass?"pass":"fail"}`;
-  $("#gate").innerHTML=`<b>${pass?"SHIP BAR PASSED":"HOLD: QUALITY BAR NOT MET"}</b><div class="sub">${pass?"Critical recall and F1 meet proposed bars. Trust gates must still pass.":`Recall ${pct(recall)} versus 95% target; F1 ${pct(f1)} versus 85% target.`}</div>`;
+  $("#gate").innerHTML=`<b>${pass?"SHIP BAR PASSED":"HOLD: QUALITY BAR NOT MET"}</b><div class="sub">${pass?`Recall ${pct(recall)} (target 95%); F1 ${pct(f1)} (target 85%). Quality bar met. Trust gates (approval, RBAC, audit) must still pass.`:`Recall ${pct(recall)} versus 95% target; F1 ${pct(f1)} versus 85% target.`}</div>`;
 }
-$("#runBtn").addEventListener("click",runEval);runEval();
+$("#runBtn").addEventListener("click",runEval);$("#scenario").addEventListener("change",syncScenario);syncScenario();
 
 function unique(key){return [...new Set(DATA.records.map(r=>r[key]).filter(Boolean))].sort()}
 unique("program").forEach(v=>$("#programFilter").insertAdjacentHTML("beforeend",`<option>${v}</option>`));
@@ -502,7 +760,7 @@ const tourSteps=[
   ["Evaluate every runtime stage","VEYRA is scored across Sensor, Triage, Narrator, and Courier—not with one blended score. That makes failures attributable and fixable."],
   ["Compare predictions to labels","The evaluation lab builds a confusion matrix and reports precision, recall, F1, and accuracy. Critical recall prevents class imbalance from hiding missed risks."],
   ["Gate governed releases","A release moves forward only when quality bars pass and binary trust controls—approval, authorization, state, memory, and audit—are green."],
-  ["Learn continuously","Production misses, false alarms, overrides, and new patterns rehydrate the datasets. Every improvement is replayed through regression before rollout."]
+  ["Learn continuously","Post-release monitoring watches drift and alerts on trust failures. Production misses, false alarms, overrides, and new patterns rehydrate the datasets. Every improvement is replayed through regression before rollout."]
 ];
 let tourIndex=0,tourTimer;
 function showTour(){
@@ -515,6 +773,81 @@ function startTour(){tourIndex=0;$("#tourModal").classList.add("open");showTour(
 $("#tourBtn").addEventListener("click",startTour);
 $("#tourNext").addEventListener("click",()=>{if(tourIndex<tourSteps.length-1){tourIndex++;showTour()}else{$("#tourModal").classList.remove("open");clearInterval(tourTimer)}});
 $("#tourClose").addEventListener("click",()=>{$("#tourModal").classList.remove("open");clearInterval(tourTimer)});
+</script>
+<script>
+(function(){
+const STEPS=[
+ {page:"overview",name:"Meet the truth set",sub:"108 reviewed work items"},
+ {page:"lab",name:"Prove it before release",sub:"Ship or hold, with evidence"},
+ {page:"monitor",name:"Keep it trusted after release",sub:"Monitor, alert, rehydrate"},
+ {page:"learn",name:"Explain the framework",sub:"Sense · Decide · Synthesize · Deliver"}
+];
+const PERSONAS={
+ all:{note:"Follow the four steps in order, or pick a role to see the steps that matter most to you.",fit:[]},
+ tpm:{note:"<b>TPM / program owner:</b> wants VEYRA to surface only the work items that need action, and to stay right week after week.",fit:["overview","monitor"]},
+ leader:{note:"<b>Program leader:</b> needs to trust what VEYRA reports and see the evidence behind a go-live decision.",fit:["overview","lab","monitor"]},
+ eval:{note:"<b>Evaluation owner:</b> decides ship or hold against release gates and keeps quality from drifting in production.",fit:["lab","monitor"]},
+ sme:{note:"<b>SME reviewer:</b> labels the truth set and turns production misses into new golden examples.",fit:["overview","monitor","learn"]}
+};
+const go=p=>{const b=document.querySelector(`.nav button[data-page="${p}"]`);if(b)b.click()};
+const spot=sel=>{const el=document.querySelector(sel);if(!el)return;document.querySelectorAll(".spot").forEach(x=>x.classList.remove("spot"));void el.offsetWidth;el.classList.add("spot");if(el.scrollIntoView)el.scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>el.classList.remove("spot"),4000)};
+const setScenario=v=>{const sc=document.querySelector("#scenario");sc.value=v;sc.dispatchEvent(new Event("change"));document.querySelector("#runBtn").click();spot("#gate")};
+const STORY={
+ overview:{who:"Anyone new to VEYRA",role:"Start here",usecase:"What does a “correct” answer look like for VEYRA?",
+  tries:[["Read what VEYRA is, in one line","#g-hero"],["See which items reviewers said should surface","#g-balance"],["See the four runtime stages that get scored","#g-runtime"]],
+  notice:"Only <b>13 of 108</b> items should surface. A system that flags nothing would still score <b>88% accuracy</b>, so accuracy alone can mislead."},
+ lab:{who:"Evaluation owner · Program leader",role:"Release decision",usecase:"Is this version good enough to ship?",
+  tries:[["Run use case 1, today’s rules baseline: 88% accuracy, still HOLD",()=>setScenario("baseline")],["Run use case 2, the near miss: one missed item still means HOLD",()=>setScenario("near")],["Run use case 3, the release candidate: all 13 caught, PASS",()=>setScenario("candidate")],["Read the confusion matrix","#g-matrix"]],
+  notice:"The gate needs <b>recall ≥ 95%</b> and <b>F1 ≥ 85%</b>. Missing a critical signal blocks release, however good the accuracy looks."},
+ monitor:{who:"TPM · Program leader · Evaluation owner",role:"After go-live",usecase:"Is the shipped version still right this week?",
+  tries:[["Follow the path from PR to pilot","#g-lifecycle"],["See what is watched in production","#g-scoreboard"],["See how VEYRA will be measured after release","#g-measure"],["See what triggers an alert","#g-alerts"],["See what feeds back into the golden set","#g-feedback"]],
+  notice:"Evaluation keeps running after release. <b>Every alert becomes a case</b>, and every miss becomes a new golden example."},
+ failures:{who:"SME reviewer · Evaluation owner",role:"Diagnose",usecase:"Which items should have surfaced, and why?",
+  tries:[["Show only the 13 Surface items",()=>{const f=document.querySelector("#labelFilter");f.value="true";f.dispatchEvent(new Event("change"));spot("#g-filters")}],["Reset the filters",()=>{["#programFilter","#typeFilter","#labelFilter"].forEach(i=>{const f=document.querySelector(i);f.value="";f.dispatchEvent(new Event("change"))});const q=document.querySelector("#searchFilter");q.value="";q.dispatchEvent(new Event("input"));spot("#g-filters")}]],
+  notice:"Records are <b>sanitized</b>: no titles, descriptions or reviewer text. Reasons are normalized so patterns are visible."},
+ learn:{who:"Program leader · new team members",role:"Explain",usecase:"How does VEYRA earn trust from start to finish?",
+  tries:[["See the four evaluation layers","#g-learning"]],
+  notice:"Each layer is scored on its own: <b>Sense, Decide, Synthesize, Deliver + Govern</b>. No single blended score."}
+};
+const visited=new Set();let persona="all";
+const current=()=>{const a=document.querySelector(".nav button.active");return a?a.dataset.page:"overview"};
+function render(){
+  const page=current();visited.add(page);
+  const fit=PERSONAS[persona].fit;
+  document.querySelector("#personaNote").innerHTML=PERSONAS[persona].note;
+  document.querySelector("#steps").innerHTML=STEPS.map((st,i)=>{
+    const cls=["step",st.page===page?"current":"",visited.has(st.page)&&st.page!==page?"done":"",fit.length&&fit.includes(st.page)?"fit":"",fit.length&&!fit.includes(st.page)&&st.page!==page?"dim":""].join(" ");
+    return `<button class="${cls}" data-go="${st.page}"><i>${visited.has(st.page)&&st.page!==page?"✓":i+1}</i><b>${st.name}</b><span>${st.sub}</span></button>`}).join("");
+  const idx=STEPS.findIndex(x=>x.page===page),st0=STORY[page];const st=st0&&Object.assign({},st0,{tries:st0.tries.filter(t=>typeof t[1]!=="string"||!document.body.classList.contains("simple")||!(document.querySelector(t[1])&&document.querySelector(t[1]).closest&&document.querySelector(t[1]).closest(".detail")))});const story=document.querySelector("#story");story.hidden=idx<0||page==="overview";if(story.hidden)return;const _u=0,next=STEPS[idx+1],prev=STEPS[idx-1];
+  document.querySelector("#story").innerHTML=`
+   <div class="who detail"><h3>STEP ${idx+1} OF ${STEPS.length} · WHO IS LOOKING</h3><b>${st.who}</b><p>${st.role}</p></div>
+   <div><h3>USE CASE</h3><p><b>${st.usecase}</b></p></div>
+   <div><h3>TRY THIS</h3><ol>${st.tries.map((t,i)=>`<li>${t[0]}<button data-try="${i}">${typeof t[1]==="function"?"Do it":"Show me"}</button></li>`).join("")}</ol></div>
+   <div class="story-foot"><div class="notice">💡 ${st.notice}</div><div>${prev?`<button class="btn" data-go="${prev.page}">← Back</button>`:""}${next?`<button class="btn primary" data-go="${next.page}">Next: ${next.name} →</button>`:`<button class="btn primary" data-go="overview">Start over ↺</button>`}</div></div>`;
+  document.querySelectorAll("#story [data-try]").forEach(b=>b.addEventListener("click",()=>{const t=st.tries[+b.dataset.try][1];typeof t==="function"?t():spot(t)}));
+  document.querySelectorAll("#journey [data-go],#story [data-go]").forEach(b=>b.addEventListener("click",()=>{go(b.dataset.go);if(window.scrollTo)window.scrollTo({top:0,behavior:"smooth"})}));
+}
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",render));window.__veyraRender=render;
+document.querySelectorAll(".persona").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".persona").forEach(x=>x.classList.remove("on"));b.classList.add("on");persona=b.dataset.persona;render()}));
+const qp=new URLSearchParams(location.search).get("persona");if(qp&&PERSONAS[qp]){persona=qp;document.querySelectorAll(".persona").forEach(x=>x.classList.toggle("on",x.dataset.persona===qp))}
+render();
+})();
+</script>
+<script>
+document.querySelectorAll("#mtabs .mtab").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("#mtabs .mtab").forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll("#g-measure .mpanel").forEach(p=>p.classList.toggle("on",p.dataset.m===b.dataset.m));
+}));
+</script>
+<script>
+(function(){
+ const btn=document.querySelector("#viewBtn");
+ const set=simple=>{document.body.classList.toggle("simple",simple);btn.textContent=simple?"Show full detail":"Simple view";btn.classList.toggle("on",!simple);
+   if(simple&&document.querySelector('.nav button[data-page="failures"].active'))document.querySelector('.nav button[data-page="overview"]').click();
+   if(window.__veyraRender)window.__veyraRender();};
+ btn.addEventListener("click",()=>set(!document.body.classList.contains("simple")));
+ set(new URLSearchParams(location.search).get("view")!=="full");
+})();
 </script>
 </body>
 </html>
