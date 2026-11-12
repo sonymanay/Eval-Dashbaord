@@ -8,7 +8,7 @@
   (() => {
     const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
     const theme =
-      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      param || "dark";
     document.documentElement.setAttribute("data-theme", theme);
   })();
 </script>
@@ -399,6 +399,18 @@ tbody tr:hover{background:color-mix(in srgb,var(--cp-link) 5%,var(--cp-surface))
 @media(max-width:760px){.hero{grid-template-columns:1fr}}
 </style>
 <style>.story[hidden]{display:none!important}</style>
+<style id="veyra-brand">
+:root{--cp-bg:#f3f6fb;--cp-bg-elevated:#f8fafd;--cp-surface:#ffffff;--cp-surface-soft:#eef3fa;--cp-border:#d9e2ee;--cp-border-strong:#8fa3bd;--cp-text:#0f1b2d;--cp-text-muted:#4f5f75;--cp-text-soft:#64748b;--cp-accent:#2f6fde;--cp-accent-hover:#2459b8;--cp-accent-soft:rgba(47,111,222,.10);--cp-accent-fg:#ffffff;--cp-link:#2f6fde;--cp-highlight:rgba(47,111,222,.12)}
+html[data-theme="dark"]{--cp-bg:#070f14;--cp-bg-elevated:#0b1620;--cp-surface:#111c27;--cp-surface-soft:#16232f;--cp-border:#22313f;--cp-border-strong:#3a4c60;--cp-text:#eaf1fb;--cp-text-muted:#9fb0c4;--cp-text-soft:#b7c4d4;--cp-accent:#3c7ee6;--cp-accent-hover:#5a94ee;--cp-accent-soft:rgba(60,126,230,.16);--cp-accent-fg:#ffffff;--cp-link:#6aa3ff;--cp-panel:rgba(17,28,39,.78);--cp-panel-strong:rgba(17,28,39,.96);--cp-highlight:rgba(60,126,230,.16)}
+body{font-family:"Segoe UI Variable Display","Segoe UI",Inter,-apple-system,sans-serif}
+h1{font-weight:800;letter-spacing:-.03em}
+.mark{background:#070f14 url(data:image/jpeg;base64,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) center/cover no-repeat!important;color:transparent!important;width:44px;height:44px;border-radius:50%;box-shadow:0 0 0 1px rgba(106,163,255,.35),0 8px 22px rgba(60,126,230,.35)!important}
+.hero .one{background:linear-gradient(135deg,#0a1a5c 0%,#1c46b0 55%,#3c7ee6 100%)!important}
+html[data-theme="dark"] .topbar{background:linear-gradient(110deg,#0d1a2e,#111c27 60%,#0a1a5c)}
+html[data-theme="dark"] .card,html[data-theme="dark"] .hero>div:not(.one){background:linear-gradient(160deg,#121e2a,#0e1822)}
+.bar-fill,.tour-progress div{background:linear-gradient(90deg,#1c46b0,#6aa3ff)!important}
+.stage:after{background:linear-gradient(90deg,#1c46b0,#6aa3ff)!important}
+</style>
 </head>
 <body>
 <div class="app">
@@ -415,8 +427,8 @@ tbody tr:hover{background:color-mix(in srgb,var(--cp-link) 5%,var(--cp-surface))
   </aside>
   <main class="main">
     <div class="topbar">
-      <div><div class="eyebrow">VEYRA OS + Signal Fabric</div><h1 id="page-title">Prove it before you trust it</h1><div class="sub">Proving VEYRA’s recommendations are right, before release and after.</div></div>
-      <div class="actions"><button class="btn viewbtn" id="viewBtn">Show full detail</button><button class="btn" id="themeBtn">Toggle theme</button><button class="btn primary" id="tourBtn">Start 30-sec tour</button></div>
+      <div><h1 id="page-title">Evaluation engine</h1><div class="sub">Always-on quality insights, from build to production.</div></div>
+      <div class="actions"><button style="display:none" class="btn viewbtn" id="viewBtn">Show full detail</button><button class="btn" id="themeBtn">Toggle theme</button><button style="display:none" class="btn primary" id="tourBtn">Start 30-sec tour</button></div>
     </div>
 
     <div class="journey detail" id="journey">
@@ -442,7 +454,7 @@ tbody tr:hover{background:color-mix(in srgb,var(--cp-link) 5%,var(--cp-surface))
       </div>
       <div class="banner detail"><div class="status"><span class="dot"></span><div><strong>Golden labels loaded; model predictions are not present</strong><p>Run the evaluation lab to compare a transparent rules baseline against the 108 reviewed labels.</p></div></div><span class="badge">Source: label-queue</span></div>
       <div class="grid kpis">
-        <div class="card"><div class="kpi-label">LABELED RECORDS</div><div class="kpi-value" id="totalRows"></div><div class="kpi-foot">100% golden-label coverage</div></div>
+        <div class="card"><div class="kpi-label">REAL VEYRA WORKFLOW DATA</div><div class="kpi-value" id="totalRows"></div><div class="kpi-foot">Actual work items from VEYRA’s workflow, each human-reviewed</div></div>
         <div class="card"><div class="kpi-label">SURFACE</div><div class="kpi-value" id="surfaceCount"></div><div class="kpi-foot" id="surfaceRate"></div></div>
         <div class="card"><div class="kpi-label">SUPPRESS</div><div class="kpi-value" id="suppressCount"></div><div class="kpi-foot">Negative examples reduce noise</div></div>
         <div class="card detail"><div class="kpi-label">PREDICTION COVERAGE</div><div class="kpi-value">0%</div><div class="kpi-foot">Prediction column is empty</div></div>
@@ -469,14 +481,14 @@ tbody tr:hover{background:color-mix(in srgb,var(--cp-link) 5%,var(--cp-surface))
 
     <section class="page" id="lab">
       <div class="lab-grid">
-        <div class="card controls"><label style="margin-top:0">Use case</label>
+        <div class="card controls"><label style="margin-top:0">Pick a version to test</label>
           <select id="scenario" style="width:100%;margin-bottom:12px">
-            <option value="baseline">1 · Rules baseline (today) — expect HOLD</option>
-            <option value="near">2 · Near miss: 12 of 13 caught — expect HOLD</option>
-            <option value="candidate">3 · Release candidate: 95%+ recall — expect PASS</option>
+            <option value="baseline">1 · Today’s simple rules → Not ready</option>
+            <option value="near">2 · Almost there: 12 of 13 risks caught → Not ready</option>
+            <option value="candidate">3 · Ready to launch: all 13 risks caught → Ready</option>
           </select>
           <div class="callout" id="scenarioNote" style="margin-bottom:12px"></div>
-          <div id="baselineControls"><h2>Rules baseline</h2><div class="sub">A transparent demonstration—not a trained VEYRA model.</div>
+          <div id="baselineControls"><h2>Try the simple rules</h2><div class="sub">A basic rule set, shown for comparison. Not the VEYRA AI.</div>
           <label>Surface threshold</label><div class="range-row"><input id="threshold" type="range" min="-50" max="60" value="10" step="5"><span class="threshold" id="thresholdValue">10</span></div>
           <div><label>Evidence weights</label>
           <div class="switches">
@@ -696,7 +708,7 @@ bars("#reasonBars",DATA.distributions.reasonCategory,6);
 $$(".nav button").forEach(btn=>btn.addEventListener("click",()=>{
   $$(".nav button").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
   $$(".page").forEach(x=>x.classList.remove("active"));$(`#${btn.dataset.page}`).classList.add("active");
-  const titles={overview:"Prove it before you trust it",lab:"Golden-set evaluation lab",failures:"Sanitized failure explorer",learn:"Learn the VEYRA framework",monitor:"Post-release evaluation"};
+  const titles={overview:"Evaluation engine",lab:"Golden-set evaluation lab",failures:"Sanitized failure explorer",learn:"Learn the VEYRA framework",monitor:"Post-release evaluation"};
   $("#page-title").textContent=titles[btn.dataset.page];
 }));
 const requestedPage=new URLSearchParams(location.search).get("page");
@@ -725,9 +737,9 @@ function score(r){
 }
 const SCENARIOS={near:new Set([17, 18, 34, 54, 60, 81, 90, 91, 98, 99, 102, 105, 106]),candidate:new Set([17, 18, 34, 49, 54, 60, 79, 81, 90, 91, 98, 99, 102, 105, 106])};
 const NOTES={
- baseline:"<b>Measured today.</b> A transparent rules baseline scored against the 108 reviewed golden labels. Move the threshold to see the precision/recall trade-off.",
- near:"<b>Illustrative scenario (simulated predictions).</b> An improved version catches 12 of 13 real signals with only 1 false alarm. F1 looks strong, but one missed risk keeps recall below 95%, so the release still holds.",
- candidate:"<b>Illustrative scenario (simulated predictions).</b> What a passing release candidate looks like: all 13 real signals caught, 2 false alarms, scored against the same 108 golden labels. Not a measured VEYRA result. Quality bar passes; trust gates must still be green before shipping."
+ baseline:"<b>Real result, measured today.</b> Simple rules checked against all 108 human-reviewed items. Move the slider: lower catches more risks but adds false alarms; higher means fewer alarms but more missed risks.",
+ near:"<b>Example scenario.</b> A better version catches 12 of the 13 real risks with just 1 false alarm. Looks strong, but one missed risk is one surprise for a leader, so it’s still not ready.",
+ candidate:"<b>Example scenario.</b> What “ready to launch” looks like: all 13 real risks caught, only 2 false alarms, on the same 108 items. It clears the quality bar; safety checks must also pass before launch."
 };
 function predict(r,t){const s=$("#scenario").value;return s==="baseline"?score(r)>=t:SCENARIOS[s].has(r.record);}
 function syncScenario(){const s=$("#scenario").value;$("#scenarioNote").innerHTML=NOTES[s];$("#baselineControls").style.opacity=s==="baseline"?"1":".4";$("#baselineControls").style.pointerEvents=s==="baseline"?"auto":"none";runEval();}
@@ -739,7 +751,7 @@ function runEval(){
   [["#tp",tp],["#tn",tn],["#fp",fp],["#fn",fn]].forEach(([id,v])=>$(id).textContent=v);
   const pass=recall>=.95&&f1>=.85;
   $("#gate").className=`gate ${pass?"pass":"fail"}`;
-  $("#gate").innerHTML=`<b>${pass?"SHIP BAR PASSED":"HOLD: QUALITY BAR NOT MET"}</b><div class="sub">${pass?`Recall ${pct(recall)} (target 95%); F1 ${pct(f1)} (target 85%). Quality bar met. Trust gates (approval, RBAC, audit) must still pass.`:`Recall ${pct(recall)} versus 95% target; F1 ${pct(f1)} versus 85% target.`}</div>`;
+  $("#gate").innerHTML=`<b>${pass?"READY TO LAUNCH":"NOT READY: QUALITY BAR NOT MET"}</b><div class="sub">${pass?`Caught ${pct(recall)} of real risks (goal 95%). Overall quality ${pct(f1)} (goal 85%). Safety checks must also pass.`:`Caught only ${pct(recall)} of real risks (goal 95%). Overall quality ${pct(f1)} (goal 85%).`}</div>`;
 }
 $("#runBtn").addEventListener("click",runEval);$("#scenario").addEventListener("change",syncScenario);syncScenario();
 
